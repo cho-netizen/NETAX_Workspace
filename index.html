@@ -198,7 +198,7 @@ async function callGas(action, payload) {
   const res = await fetch(GAS_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'text/plain;charset=utf-8' }, // GAS 웹앱 CORS preflight 회피
-    body: JSON.stringify(Object.assign({ action }, payload))
+    body: JSON.stringify(Object.assign({ action, _key: (window.DESK_CONFIG && window.DESK_CONFIG.API_SECRET) || '' }, payload))
   });
   if (!res.ok) throw new Error('네트워크 오류 (status ' + res.status + ')');
   const data = await res.json();
